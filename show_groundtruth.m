@@ -17,11 +17,13 @@ for videoIdx = 1 : videoCount
 
     for i = 1 : numFrames
         mask = volLabel{i};
-        curFrame = im2double(read(obj, i));
-        curFrame(:, :, 1) = min(curFrame(:, :, 1) + 0.5 * double(mask), 1); 
-        imshow(curFrame);
-        imwrite(curFrame, ['output\', sprintf('%03d', i), '.bmp']);
-        getframe;
+        if any(any(mask))
+            curFrame = im2double(read(obj, i));
+            curFrame(:, :, 1) = min(curFrame(:, :, 1) + 0.5 * double(mask), 1); 
+            imshow(curFrame);
+            imwrite(curFrame, ['detection\', sprintf('%03d', i), '.bmp']);
+            getframe;
+        end
     end
     
 end
